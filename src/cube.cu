@@ -1,37 +1,42 @@
 // https://www.youtube.com/watch?v=iaRs_yJA_js&list=PLAwxTw4SYaPnFKojVQrmyOGFCqHTxfdv2&index=38
-#include <iostream>
+#include <stdio.h>
 #include <math.h>
 
-__global__ void cube(float * d_out, float * d_in){
+__global__ void cube(float *d_out, float *d_in)
+{
 	int idx = threadIdx.x;
 	float f = d_in[idx];
 	d_out[idx] = f * f * f;
 }
 
-int main(int argc, char ** argv){
-	constexpr int ARRAY_SIZE {96};
-	constexpr int ARRAY_BYTES {ARRAY_SIZE*sizeof(float)}; 
+int main(int argc, char **argv)
+{
+	constexpr int ARRAY_SIZE{96};
+	constexpr int ARRAY_BYTES{ARRAY_SIZE * sizeof(float)};
 
 	float h_in[ARRAY_SIZE];
 
-	for (int i = 0; i < ARRAY_SIZE; ++i){
-		h_in[i] = float(i);
+	for (int i = 0; i < ARRAY_SIZE; ++i)
+	{
+		h_in[i] = float(i + 1);
 	}
 	float h_out[ARRAY_SIZE];
 
-	float * d_in, * d_out;
+	float *d_in, *d_out;
 
-	cudaMalloc((void**) &d_in, ARRAY_BYTES);
-	cudaMalloc((void**) &d_out, ARRAY_BYTES);
+	cudaMalloc((void **)&d_in, ARRAY_BYTES);
+	cudaMalloc((void **)&d_out, ARRAY_BYTES);
 
-	cudaMemcpy(d_in, h_in, ARRAY_SIZE, cudaMemcpyHostToDevice);
+	cudaMemcpy(d_in, h_in, ARRAY_BYTES, cudaMemcpyHostToDevice);
 
+	// kernel<<<dim3(bx,by,bz), dim3(tx,ty,tz), sharedBytesPerBlock>>>(...) to launch bx*by*bz blocks with tx*ty*tz threads/block for tx*ty*tz*bx*by*bz thread total
 	cube<<<1, ARRAY_SIZE>>>(d_out, d_in);
 
-	cudaMemcpy(h_out, d_out, ARRAY_SIZE, cudaMemcpyDeviceToHost);
+	cudaMemcpy(h_out, d_out, ARRAY_BYTES, cudaMemcpyDeviceToHost);
 
 	// print out resulting array
-	for (int i = 0; i < ARRAY_SIZE; ++i){
+	for (int i = 0; i < ARRAY_SIZE; ++i)
+	{
 		printf("%f", h_out[i]);
 		printf(((i % 4) != 3) ? "\t" : "\n");
 	}
@@ -40,6 +45,4 @@ int main(int argc, char ** argv){
 	cudaFree(d_out);
 
 	return 0;
-
-
 }

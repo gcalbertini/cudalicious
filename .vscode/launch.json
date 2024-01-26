@@ -9,7 +9,7 @@
 			"name": "CUDA C++: Launch",
 			"type": "cuda-gdb",
 			"request": "launch",
-			"program": "${workspaceFolder}/"
+			"program": "${workspaceFolder}/build/Debug/square.exe" // needs to be .out in Linux build
 		}
 	]
 }

@@ -9,7 +9,7 @@
 			"name": "CUDA C++: Launch",
 			"type": "cuda-gdb",
 			"request": "launch",
-			"program": "${workspaceFolder}/build/Debug/cuda_examples.exe"
+			"program": "${workspaceFolder}/"
 		}
 	]
 }

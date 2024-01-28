@@ -14,8 +14,8 @@ message(STATUS  "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /NODEFAULTLIB:LIBCMT")
 
 # Include directories
-include_directories("${CMAKE_SOURCE_DIR}/include")
-include_directories("${CMAKE_SOURCE_DIR}/src/project1")
+include_directories("${CMAKE_SOURCE_DIR}/include/opencv2")
+include_directories("${CMAKE_SOURCE_DIR}/src/projectsUdacity")
 
 # Function to add an executable for a CUDA source file
 function(add_cuda_executable CUDA_SOURCE)
@@ -47,7 +47,7 @@ foreach(CUDA_SOURCE ${CUDA_SOURCES})
 endforeach()
 
 
-file(GLOB_RECURSE MAIN_CPP_PROJECT1 "${CMAKE_SOURCE_DIR}/src/project1/main.cpp")
+file(GLOB_RECURSE MAIN_CPP_PROJECT1 "${CMAKE_SOURCE_DIR}/src/projectUdacity/main.cpp")
 
 foreach(MAIN_CPP_PROJECT1_FILE ${MAIN_CPP_PROJECT1})
     get_filename_component(EXE_NAME ${MAIN_CPP_PROJECT1_FILE} NAME_WE)

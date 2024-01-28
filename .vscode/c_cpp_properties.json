@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.1/include",
                 "C:/msys64/ucrt64/include/opencv4",
-                "C:/Users/gbert/Desktop/cs344-master/Problem Sets/Problem Set 1"
+                "C:/Users/gbert/Desktop/cs344-master/Problem Sets/Problem Set 1",
+                "${workspaceFolder}/include"
             ],
             "compilerPath": "C:/msys64/ucrt64/bin/gcc.exe",
             "cStandard": "c23",

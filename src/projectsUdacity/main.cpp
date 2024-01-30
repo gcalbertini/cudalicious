@@ -8,6 +8,9 @@
 #include "reference_calc.h"
 #include "compare.h"
 
+
+// YO RUN THIS WITH ON WSL: nvcc -Iinclude -o output_executable src/projectsUdacity/main.cpp -lopencv_core -lopencv_imgcodecs -lopencv_imgproc
+
 void your_rgba_to_greyscale(const uchar4 *const h_rgbaImage,
                             uchar4 *const d_rgbaImage,
                             unsigned char *const d_greyImage,

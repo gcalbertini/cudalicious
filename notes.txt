@@ -377,46 +377,388 @@ Sorting algos and time complexity: https://www.geeksforgeeks.org/time-complexiti
 
 MULTITHREEADING AND CUDA; Include AI algo Qs!
 
-What is the free lunch?
 
-What is context switching?
+What is reume project?
 
-What is task switching?
+PLEASE SEE SLIDES SUBMIT FOR HPS AS HE WILL ASK (HOGWILD)
+PLEASE SEE PRM MODEL AND LAMBDAMART AS HE WILL ASK
+COCO DATASET AND IMAGE SEGMENTATION AS HE WILL ASK 
 
+LATEST NEWS ON NVIDIA WAS LINKED. PLEASE ASK RELEVANT RECENT
+QS ALONGSIDE ONES NOTED:
+
+How are GPUs launching kernels on their own now? (huh)
+hUMA and cahce coherence between CPU + GPU (what rivals AMDs APU)
+Nvidia RAPIDS cuDNN libraries 
+WHy not move to Rust or other langs yet?
+Others on his background
+Why this team; what the goal will ultimately be
+What this role specifically does 
+
+Expanding team and work loads they deal with. Maximizing performance 
+out of applications. Traditionally GPU just used in R&D/HPC settings with super computers
+Over the last 5 years going into AI --> optimize deep learning algos for inference/training 
+or implementing traditional ML algo in parallel
+
+How do you choose what to work on? External partners buy GPUs, come to you and want to run X model
+on GPU but not within latency budgets within application --> work with them to figure out
+SW solution or how to efficiently parallelize the process they are looking at or how to distribute
+it across multiple nodes 
+
+Sometimes internal projects to make efficient CUDA code or general || code 
+
+Expanding team --> 5-10 yrs of experience on the team
+
+Learn the workloads, see what users are using it and what they require --> internalize some learnings from them
+Team collabs with hardware teams thinking of new features (2-5 yrs down the line) to future-proof algos
+
+Third aspect, evangelizing CUDA and NVIDIA ecosystem, writing up the technical blogs and speaker sessions
+at conferences that make it through conf submissions --> help further || computing with the green team
+
+Because we are with devs and CUDA a lot, work with SW/HW new programming models to expose new features 
+One stop shop for parallel computing team (touch eveything based on experience and interests)
+
+NVIDIA research occassional collabs but normally submit a paper to conference based on the output of work
+But more focused on HW/SW interactions 
+
+Expanding due to work for LLM demand; GPU space for DL --> new compilers demand new kernels 
+and techniques; new precision and new techniques 
+
+
+How will the team collaborate with other existing teams within the organization?
+What skill sets are you looking for when building the team, both in terms of CUDA expertise and broader software and hardware skills?
+Are there specific roles or positions that need to be filled within the team? Size? 
+Will there be opportunities for team members to receive training or professional development in CUDA programming and optimization techniques?
+Will the team collaborate with external partners, vendors, or research institutions for certain aspects of the project?
+
+
+PRM Model -- Transformer self attention to home search before GPT hype on the PRM model:
+Self-attention, on the other hand, allows a model to weigh the importance of different elements within the same input sequence. 
+This is particularly useful for capturing relationships and dependencies between different elements in a sequence, regardless of their positions.
+===========================================================================
+What is atomic op:
+    Indivisibility: An atomic operation is performed as a single, uninterruptible unit. It is not 
+    possible for other threads or processes to observe an intermediate state of the operation.
+
+    No Interruption: Once initiated, an atomic operation completes without being interrupted by other 
+    operations. This is important for maintaining consistency and avoiding conflicts in a concurrent environment.
+
+    Consistency: Atomic operations ensure that shared data remains in a consistent state,
+     even when multiple threads are accessing or modifying it simultaneously.
+
+    No Race Conditions: Atomic operations help prevent race conditions, where the outcome of operations
+     depends on the timing or interleaving of multiple threads. By providing atomicity, these operations 
+     eliminate the need for explicit locks in certain scenarios.
+===========================================================================
+Here's a simplified explanation of how self-attention works:
+
+    Key, Query, and Value: In self-attention, for each element in the input sequence,
+     there are three vectors associated with it: Key (K), Query (Q), and Value (V).
+      These vectors are learned during the training process.
+
+    Score Calculation: The model calculates a score for each element in
+     the sequence based on the similarity between its Query vector and the Key
+      vectors of all other elements. The scores determine how much attention each 
+      element should pay to others.
+
+    Weighted Sum: The scores are used to calculate weights, which are 
+    applied to the corresponding Value vectors. These weighted values are
+     then summed to obtain the output representation for each element.
+
+    Multi-Head Attention: To capture different aspects or types of relationships, 
+    the self-attention mechanism is often used with multiple sets of Key, Query, and Value vectors, 
+    called "heads." The results from these multiple heads are concatenated and linearly transformed 
+    to produce the final output.
+
+The self-attention mechanism allows the model to consider the entire context of the input 
+sequence when making predictions for each element. This capability has proven beneficial for 
+tasks where understanding the relationships between different parts of the input is crucial, 
+such as in language understanding and generation.
+===========================================================================
+
+What is bandwidth? Formula?
+
+Bandwidth - the rate at which data can be transferred. 
+Clock Rate x vector/8 x N <<<N = 2 for double datta rate>>> / 10e9 = GB/s
+
+Effective bandwidth is ((Br (number bytes read/kernel) + 
+Bw (number of bytes written per kernel)) /10e9 ) / time
+
+So for MxM matrix of floats (4 bytes) and needing to read/write (2)
+we have (M**2x4x2)/10e9/time
+===========================================================================
+
+What is a GAN vs CNN vs RNN vs LSTM?
+
+    GAN (Generative Adversarial Network):
+        Purpose: GANs are generative models designed to generate new data samples that resemble a given dataset.
+        Architecture: GANs consist of two neural networks, a generator, and a discriminator, which are trained 
+        simultaneously through adversarial training. The generator generates synthetic data, and the 
+        discriminator evaluates whether the generated data is real or fake.
+        Use Cases: Image generation, style transfer, data augmentation, and more.
+
+    CNN (Convolutional Neural Network):
+        Purpose: CNNs are primarily used for image-related tasks and spatial data.
+        Architecture: CNNs use convolutional layers that automatically learn spatial hierarchies of features from input data. 
+        They are well-suited for tasks involving images and patterns in grid-structured data.
+        Use Cases: Image classification, object detection, facial recognition, and image segmentation.
+
+    RNN (Recurrent Neural Network):
+        Purpose: RNNs are designed for sequence data, where the order of data points matters.
+        Architecture: RNNs have recurrent connections that allow them to maintain a memory of previous inputs. 
+        This makes them suitable for tasks where context or temporal dependencies are crucial.
+        Use Cases: Natural language processing, time series analysis, speech recognition.
+
+    LSTM (Long Short-Term Memory):
+        Purpose: LSTMs are a type of RNN designed to address the vanishing gradient problem and capture long-term dependencies in sequence data.
+        Architecture: LSTMs have specialized memory cells that can store and retrieve information for extended periods, allowing them to handle 
+        long-term dependencies in data.
+        Use Cases: Similar to RNNs, LSTMs are used in natural language processing, time series analysis, and any task where long-range dependencies are critical.
+
+In summary:
+
+    GANs are for generating new data samples.
+    CNNs are for tasks involving spatial data, especially images.
+    RNNs are for sequence data where order matters.
+    LSTMs are a type of RNN designed to address long-term dependencies.
+
+===========================================================================
 Difference between thread and a process?
 
+    Definition:
+        Process: A process is an independent program in execution. It has its memory space, 
+        resources, and a dedicated instance of the program counter.
+        Thread: A thread is the smallest unit of execution within a process. 
+        Threads share the same memory space and resources of a process, but each 
+        thread has its own execution context, including a separate program counter and register set.
+
+    Independence:
+        Process: Processes are independent of each other. They run in isolation and have their own memory space.
+        Thread: Threads within the same process share the same memory space and resources. 
+        They are more lightweight than processes and can communicate with each other more easily.
+
+    Communication:
+        Process: Inter-process communication (IPC) is required for communication between different processes. 
+        This communication may involve more overhead.
+        Thread: Threads within the same process can communicate directly through shared memory, making 
+        communication more efficient. However, proper synchronization mechanisms are needed to avoid conflicts.
+
+    Resource Overhead:
+        Process: Processes have higher resource overhead as they are independent entities 
+        with their own memory space, file handles, and other resources.
+        Thread: Threads have lower resource overhead since they share resources with other 
+        threads in the same process. However, they still have their own execution context.
+
+    Creation and Termination:
+        Process: Creating and terminating processes is generally slower and more resource-intensive.
+        Thread: Creating and terminating threads is faster and requires less overhead.
+
+    Fault Tolerance:
+        Process: Processes are more fault-tolerant. If one process fails, it does not directly affect other processes.
+        Thread: Threads within the same process are less fault-tolerant. If one thread crashes, it may affect the entire process.
+
+    Scalability:
+        Process: Processes are considered heavyweight, and creating many processes may not be as scalable.
+        Thread: Threads are considered lightweight, and creating many threads within a process is generally more scalable.
+
+In summary, a process is an independent program in execution with its own memory space, 
+while a thread is a smaller unit of execution within a process that shares the same resources
+ with other threads in the same process. Threads are lighter-weight than processes and can be more 
+ efficient for concurrent programming but require careful synchronization to avoid conflicts.
+===========================================================================
 Difference between parallelism and concurrency?
+Concurrency refers to the ability of a system to execute multiple independent
+ tasks or processes at the same time. It doesn't necessarily mean that tasks are executing 
+ simultaneously (parallel), but rather that progress is being made on multiple tasks over a period of time. 
+ In concurrent systems, tasks may be interleaved, running concurrently but not necessarily in parallel.
 
-Drawbacks of processes and what about those for threads?
-
-Drawbacks of too much multithreading? 
-
-What is RAII?
-
+ In summary, concurrency is about managing multiple tasks and making progress on them, potentially 
+ interleaving their execution. Parallelism is about executing multiple tasks simultaneously, often to 
+ improve performance. Concurrency is a broader concept that encompasses parallelism, but not all concurrent
+  systems are necessarily parallel.
+===========================================================================
 What is a mutex?
 
-What is Amdahl's law? What law rose to challenge it?
+A mutex, short for mutual exclusion, is a synchronization mechanism used in concurrent programming to ensure
+ that only one thread can access a shared resource or critical section at any given time. The purpose of a 
+ mutex is to prevent data corruption or unexpected behavior caused by multiple threads accessing shared resources concurrently.
+
+Mutexes provide a way for threads to coordinate and avoid conflicts by allowing only one thread at a time to 
+enter a critical section of code. When a thread wants to access the shared resource, it must first acquire the mutex.
+ If the mutex is already held by another thread, the requesting thread may be blocked or made to wait until the mutex is released by the owning thread.
+
+The basic operations on a mutex are:
+
+    Lock (Acquire): A thread tries to acquire the mutex. If the mutex is not already held by another thread, 
+    it is locked, and the thread can proceed. If the mutex is already locked, the thread may be blocked until
+    it can acquire the lock.
+
+    Unlock (Release): The owning thread releases the mutex, allowing other threads to acquire it.
+===========================================================================
+What is Amdahl's law? What law rose to challenge it? What is strong scaling? 
+
+Strong scaling is a measure of how, for a fixed overall 
+problem size, the time to solution decreases as 
+more processors are added to a system. An application
+that exhibits linear strong scaling has a speedup 
+equal to the number of processors used.
+
+Strong scaling is usually equated with Amdahl’s Law, 
+which specifies the maximum speedup that can be 
+expected by parallelizing portions of a serial program. 
+Essentially, it states that the maximum speedup S of 
+a program is:
+
+S = 1/((1-P) + P/N)
+
+for P fraction of total serial execution taken by portion 
+of code that can be || and N is number of processors for
+which || returns
+
+Larger the N smaller the P/N fraction --> S = 1/(1-P)
+===========================================================================
+
+Gustafson Law? Weak scaling?
+
+Weak scaling is a measure of how the time to solution 
+changes as more processors are added to a system with
+ a fixed problem size per processor; i.e., where the 
+ overall problem size increases as the number of 
+ processors is increased.
+
+Weak scaling is often equated with Gustafson’s Law,
+ which states that in practice, the problem size 
+ scales with the number of processors. Because of this, 
+ the maximum speedup S of a program is:
+
+ S = N + (1-P)(1-N)
+
+ Here P is the fraction of the total serial execution 
+ time taken by the portion of code that can be parallelized
+  and N is the number of processors over which 
+  the parallel portion of the code runs.
+
+Another way of looking at Gustafson’s Law is that it 
+is not the problem size that remains constant as we
+ scale up the system but rather the execution time. 
+ Note that Gustafson’s Law assumes that the ratio of 
+ serial to parallel execution remains constant, reflecting additional cost in setting up and handling the larger problem.
+
 
 When would it make sense to use a detached (daemon) thread? 
 When theres another mechanism for ID when thread has completed or where the thread
-is uded in a fire-and-forget task
-
+is used in a fire-and-forget task
+===========================================================================
 What is an SM?
+parallel processing unit that consists of multiple CUDA cores. These cores are responsible for executing parallel threads.
 The GPU allocates blocks to the SMs. The SMs run in || and independently and control simple processors. A thread block 
 may not run on more than one SM 
-
+===========================================================================
 How does a GAN work? What about a CNN? Example?
-
+===========================================================================
 What is Bayesian inference?
+Bayesian inference is a statistical method that provides a 
+framework for updating beliefs or making predictions about uncertain events 
+based on prior knowledge and new evidence.
 
+Prior Probability (Prior):
+
+    The initial belief or probability distribution representing what is 
+    known before new data is observed. It encapsulates existing knowledge or 
+    assumptions about the parameters or events under consideration.
+
+Likelihood:
+
+    The probability of observing the data given a specific set of parameters. 
+    It describes the likelihood of the observed data under different hypotheses.
+
+Posterior Probability (Posterior):
+
+    The updated probability distribution representing the beliefs about the 
+    parameters or events after considering the observed data. It is obtained by combining the 
+    prior knowledge and the likelihood of the data.
+
+Bayes' Theorem:
+
+    The mathematical formula that governs Bayesian inference is Bayes' theorem:
+    P(parameters∣data)=P(data∣parameters)×P(parameters)/P(data)
+        P(parameters∣data) is the posterior probability.
+        P(data∣parameters) is the likelihood.
+        P(parameters) is the prior probability.
+        P(data) is the marginal likelihood (normalizing constant).
+
+Posterior Predictive Distribution:
+
+    After obtaining the posterior distribution, it can be used to make predictions
+     about future observations or unobserved quantities.
+===========================================================================
 What is MLE?
 
+The basic idea behind MLE is to find the values of the model parameters that maximize the likelihood function, 
+which measures how well the model explains the observed data.
+
+Here are the key concepts related to Maximum Likelihood Estimation:
+
+    Likelihood Function:
+        The likelihood function, denoted as L(θ∣data), 
+        represents the probability of observing the given data under a particular set 
+        of parameters (θ) in the statistical model. It is essentially the probability distribution 
+        of the observed data, treated as a function of the parameters.
+
+    Log-Likelihood Function:
+        The log-likelihood function, denoted as ℓ(θ∣data)ℓ(θ∣data), is often used instead of the likelihood function. 
+        Taking the logarithm can simplify computations, and the logarithm does not change the location of the maximum value.
+
+    Maximum Likelihood Estimation:
+        MLE aims to find the values of the model parameters (θ^) that maximize the likelihood function (or log-likelihood function) given the observed data:
+        θ^=arg⁡max_⁡ θ L(θ∣data) OR θ^=argmax_θ l(θ∣data)
+
+        In practice, this often involves finding the values of the parameters for which the derivative (gradient) of the log-likelihood function is equal to zero.
+
+    Interpretation:
+        The MLE provides estimates of the model parameters that make the observed data most probable under the assumed statistical model.
+
+    Consistency and Efficiency:
+        Under certain conditions, MLE estimates are consistent, meaning that as the sample size increases, the estimates converge to the true parameter values.
+        MLE estimates are also asymptotically efficient, meaning that they achieve the best possible estimation precision as the sample size becomes large.
+
+    Invariance Property:
+        MLE has the invariance property, which means that if θ^ is the MLE of θ, then g(θ^) is the MLE of g(θ) for any function g(⋅).
+
+        Good for param fitting
+===========================================================================
 What is L2/L1 regularization? A kernel for this?
 
-What is a shared and unique pointer in C++?
+L2 (ridge) and L1 (lasso) regularization are techniques used in machine learning to prevent 
+overfitting by adding a penalty term to the cost function based on the magnitude of the model parameters.
+ These regularization techniques are commonly applied in linear regression and logistic regression models.
 
+L2 Regularization (Ridge):
+
+    Purpose: Introduces a penalty term proportional to the squared magnitude of the model parameters.
+    Regularization Term: λ ∑θ_i^2​, where λ is the regularization strength and θ_i​ are the model parameters.
+    Effect: Encourages small but non-zero values for all parameters, preventing any single parameter from dominating the model.
+
+L1 Regularization (Lasso):
+
+    Purpose: Introduces a penalty term proportional to the absolute value of the model parameters.
+    Regularization Term: λ∑∣θ_i∣, where λ is the regularization strength and θ_i​ are the model parameters.
+    Effect: Encourages sparsity by driving some parameter values to exactly zero, effectively performing feature selection.
+
+===========================================================================
+What is a shared and unique pointer in C++?
+===========================================================================
 Name commons C++ DS? Implement one or two for me. 
 
+std::vector is a dynamic array that can grow or shrink in size. It provides constant time access to elements and efficient insertion/deletion at the end.
+std::list is a doubly-linked list that allows efficient insertion and deletion of elements at any position, but with slower random access compared to vectors.
+std::deque is a double-ended queue that supports fast insertion and deletion at both ends. It is similar to a vector but allows efficient insertion/deletion at the front.
+std::queue is a queue data structure that follows the First In, First Out (FIFO) principle.
+std::stack is a stack data structure that follows the Last In, First Out (LIFO) principle
+std::set is an ordered set that stores unique elements in a sorted order
+std::map is an associative container that stores key-value pairs in a sorted order based on the keys.
+std::unordered_set and std::unordered_map are unordered versions of set and map, providing faster average lookup times.
+===========================================================================
 Describe the mem hierarchy.
 
 All threads of a block can access the same variable in that blocks shared mem.
@@ -424,5 +766,20 @@ Threads from two different blocks can access the same variable in global mem.
 Threads from different blocks have their own copy of local vars in local mem.
 Threads from the same block have their own copy of local vars in local mem. 
 Thread local, block shared, kernel global
+==========================
+Precision:
+
+    Definition: Precision is the ratio of correctly predicted positive observations 
+    (True Positives) to the total predicted positives (sum of True Positives and False Positives). 
+    It measures the accuracy of the positive predictions.
+    Formula: Precision= TP / TP + FP
+    Objective: A high precision indicates that a positive prediction from the model is likely to be correct.
+
+Recall (Sensitivity or True Positive Rate):
+
+    Definition: Recall is the ratio of correctly predicted positive observations (True Positives) 
+    to the total actual positives (sum of True Positives and False Negatives). It measures the ability of the model to capture all the positive instances.
+    Formula: Recall= TP / TP + FN
+    Objective: A high recall indicates that the model is effective at identifying most of the positive instances in the dataset.
 
 
